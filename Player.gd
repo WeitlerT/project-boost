@@ -56,6 +56,8 @@ func _on_body_entered(body: Node) -> void:
 
 func crash_sequence() -> void:
 	print("KABOOM")
+	if rocket_audio.playing == true:
+		rocket_audio.stop()
 	explosion_audio.play()
 	explosion_particles.emitting = true
 	set_process(false)
