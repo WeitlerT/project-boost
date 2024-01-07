@@ -1,6 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgd2dneiufvce"]
+[gd_scene load_steps=10 format=3 uid="uid://bgd2dneiufvce"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_dr6uf"]
+[ext_resource type="AudioStream" uid="uid://c2vtn50b02ce0" path="res://Audio/SFX - Death Explosion.ogg" id="2_dhr0h"]
+[ext_resource type="AudioStream" uid="uid://1jktmt3vqqn0" path="res://Audio/SFX - Success.ogg" id="3_pddj0"]
+[ext_resource type="AudioStream" uid="uid://lolngy8acmnr" path="res://Audio/SFX - Main engine thrust.ogg" id="4_a6p1d"]
+[ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://Particles/booster_particles.tscn" id="5_3o3as"]
+[ext_resource type="PackedScene" uid="uid://dcecb8hw7dbrv" path="res://Particles/explosion_particles.tscn" id="6_sx76f"]
+[ext_resource type="PackedScene" uid="uid://jfwajmrh6ca7" path="res://Particles/success_particles.tscn" id="7_p5ok2"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_rweqe"]
 
@@ -21,5 +27,29 @@ mesh = SubResource("CylinderMesh_rweqe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_2wf64")
+
+[node name="ExplosionAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_dhr0h")
+volume_db = -10.302
+
+[node name="SuccessAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_pddj0")
+volume_db = -21.132
+
+[node name="RocketAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_a6p1d")
+
+[node name="BoosterParticles" parent="." instance=ExtResource("5_3o3as")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.846547, 0)
+
+[node name="RightBoosterParticles" parent="." instance=ExtResource("5_3o3as")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.4, -0.847, 0)
+
+[node name="LeftBoosterParticles" parent="." instance=ExtResource("5_3o3as")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.4, -0.847, 0)
+
+[node name="ExplosionParticles" parent="." instance=ExtResource("6_sx76f")]
+
+[node name="SuccessParticles" parent="." instance=ExtResource("7_p5ok2")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
